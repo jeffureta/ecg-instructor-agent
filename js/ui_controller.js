@@ -85,10 +85,12 @@ export function formatMarkdownToHtml(markdownText) {
 
 /**
  * Creates and appends a structured chat bubble to the study discussion thread.
+ * If rawDiagnosticText is provided (from Agent 1: EP Fellow), an expandable accordion is appended.
  * @param {'user' | 'agent' | 'system'} sender - The message origin.
- * @param {string} messageText - The formatted clinical message text.
+ * @param {string} messageText - The formatted clinical message text (Plain-Language Educator output).
+ * @param {string|null} [rawDiagnosticText=null] - Optional raw technical electrophysiology data.
  */
-export function renderChatMessage(sender, messageText) {
+export function renderChatMessage(sender, messageText, rawDiagnosticText = null) {
     const container = document.getElementById('chat-messages-container');
     if (!container) return;
 
@@ -105,7 +107,25 @@ export function renderChatMessage(sender, messageText) {
     card.className = `card-panel z-depth-1 chat-card ${colorClass}`;
 
     // Convert markdown to clean, structured HTML
-    card.innerHTML = formatMarkdownToHtml(messageText);
+    let formattedHtml = formatMarkdownToHtml(messageText);
+
+    // If raw diagnostic consult from EP Fellow is available, append expandable accordion
+    if (rawDiagnosticText && sender === 'agent') {
+        const epFormattedHtml = formatMarkdownToHtml(rawDiagnosticText);
+        formattedHtml += `
+            <details class="ep-consult-accordion">
+                <summary class="ep-consult-summary">
+                    <span>🔬 View Cardiologist / EP Fellow Technical Consult (Raw Data)</span>
+                    <span class="badge-pill badge-neutral" style="font-size:0.7rem;">EP FELLOW</span>
+                </summary>
+                <div class="ep-consult-content">
+                    ${epFormattedHtml}
+                </div>
+            </details>
+        `;
+    }
+
+    card.innerHTML = formattedHtml;
     bubbleWrapper.appendChild(card);
     container.appendChild(bubbleWrapper);
     container.scrollTop = container.scrollHeight;
@@ -113,12 +133,22 @@ export function renderChatMessage(sender, messageText) {
 
 /**
  * Displays an active loading spinner while waiting for the AI response.
+ * Optionally updates the current stage description text.
  * @param {boolean} isLoading - State of the network request.
+ * @param {string|null} [stageText=null] - Optional status message for multi-stage loading.
  */
-export function toggleLoadingSpinner(isLoading) {
+export function toggleLoadingSpinner(isLoading, stageText = null) {
     const spinnerElement = document.getElementById('ai-loading-indicator');
+    const stageTextEl = document.getElementById('loading-stage-text');
     if (spinnerElement) {
         spinnerElement.style.display = isLoading ? 'flex' : 'none';
+    }
+    if (stageTextEl) {
+        if (stageText) {
+            stageTextEl.textContent = stageText;
+        } else if (!isLoading) {
+            stageTextEl.textContent = 'Clinical preceptor is analyzing rhythm & guidelines...';
+        }
     }
 }
 
