@@ -21,9 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Setup 5-Step Analyzer Tab
     setupAnalyzerTab();
-
-    // 5. Setup LITFL Reference Library
-    loadReferenceLibrary();
 });
 
 /**
@@ -86,7 +83,6 @@ function setupSettingsModal() {
 function setupChatInterface() {
     const chatInput = document.getElementById('chat-input');
     const sendBtn = document.getElementById('send-message-btn');
-    const quickChips = document.querySelectorAll('.quick-chip');
 
     async function handleSendMessage(message) {
         const text = message || (chatInput ? chatInput.value.trim() : '');
@@ -126,15 +122,6 @@ function setupChatInterface() {
             }
         });
     }
-
-    quickChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            const promptText = chip.getAttribute('data-prompt');
-            if (promptText) {
-                handleSendMessage(promptText);
-            }
-        });
-    });
 }
 
 /**
@@ -239,39 +226,5 @@ Structure your response strictly using all 5 mandatory clinical sections:
                 if (sendBtn) sendBtn.click();
             }
         });
-    }
-}
-
-/**
- * Loads clinical ECG reference items from ecg_library.json.
- */
-async function loadReferenceLibrary() {
-    const listContainer = document.getElementById('reference-library-list');
-    if (!listContainer) return;
-
-    try {
-        const response = await fetch('assets/data/ecg_library.json');
-        if (!response.ok) throw new Error('Could not load ECG library');
-        const items = await response.json();
-
-        listContainer.innerHTML = items.map(item => `
-            <div class="ref-list-item">
-                <div class="ref-meta">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <span class="ref-title">${item.name}</span>
-                        <span class="badge-pill ${item.category === 'Rate' ? 'badge-stable' : 'badge-warning'}">${item.category}</span>
-                    </div>
-                    <div class="ref-desc">${item.summary}</div>
-                    <div style="font-size:0.75rem; color:#888;">Rate: ${item.rate} | Rhythm: ${item.rhythm}</div>
-                </div>
-                <div>
-                    <a href="${item.litfl_url}" target="_blank" rel="noopener noreferrer" class="btn-flat waves-effect blue-text" title="Open LITFL Guide">
-                        <i class="material-icons">open_in_new</i>
-                    </a>
-                </div>
-            </div>
-        `).join('');
-    } catch (err) {
-        listContainer.innerHTML = `<div class="p-3 red-text">Failed to load reference items: ${err.message}</div>`;
     }
 }

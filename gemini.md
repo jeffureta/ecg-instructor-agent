@@ -164,9 +164,7 @@ ecg-instructor-agent/
 * **Interactive 5-Step Input Drawer / Modal:** Allows the nurse to enter measured numbers (e.g. Heart Rate: 130, PR: 240 ms, QRS: 140 ms, QTc: 510 ms, ST Elevation: Yes) or type freeform conversational descriptions (e.g., *"My patient's telemetry shows an irregular rhythm with no P-waves and wide complexes"*).
 * **Tabbed Learning Workspace:**
   1. *Tab 1: Preceptor Chat:* Dynamic conversational tutoring with the AI agent.
-  2. *Tab 2: 5-Step Calculator & Normal Values:* Interactive interval reference guide.
-  3. *Tab 3: Emergency Stabilization Checklist:* Rapid bedside action protocols.
-  4. *Tab 4: LITFL Reference Library:* Direct links to verified electrophysiology references.
+  2. *Tab 2: 5-Step Tool & Normal Values:* Interactive interval reference and clinical evaluator.
 
 ---
 

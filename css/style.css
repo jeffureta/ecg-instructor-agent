@@ -270,33 +270,7 @@ body {
   flex-shrink: 0;
 }
 
-/* Clinical Quick Prompts Pill Row */
-.quick-prompts {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 8px 16px;
-  background: #ffffff;
-  border-top: 1px solid #f1f3f4;
-}
 
-.quick-chip {
-  background: #f1f3f4;
-  color: var(--google-text-primary);
-  border: 1px solid #dadce0;
-  border-radius: 16px;
-  padding: 4px 12px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-
-.quick-chip:hover {
-  background: #e8f0fe;
-  border-color: #aecbfa;
-  color: var(--google-blue);
-}
 
 /* 5-Step Analyzer */
 .step-grid {
@@ -340,40 +314,7 @@ body {
   margin-top: 4px;
 }
 
-/* Stabilization Checklist */
-.checklist-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 10px;
-  border-bottom: 1px solid #f1f3f4;
-}
 
-.checklist-num {
-  background: var(--danger-bg);
-  color: var(--danger-red);
-  font-weight: 700;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  flex-shrink: 0;
-}
-
-.checklist-content h5 {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin: 0 0 4px 0;
-}
-
-.checklist-content p {
-  font-size: 0.85rem;
-  color: var(--google-text-secondary);
-  margin: 0;
-}
 
 /* Loading Spinner */
 #ai-loading-indicator {
@@ -404,36 +345,7 @@ body {
   gap: 10px;
 }
 
-/* Reference Cards */
-.ref-list-item {
-  padding: 14px 16px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
-.ref-list-item:hover {
-  background: #f8f9fa;
-}
-
-.ref-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.ref-title {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--google-blue);
-  text-decoration: none;
-}
-
-.ref-desc {
-  font-size: 0.82rem;
-  color: var(--google-text-secondary);
-}
 
 @media only screen and (max-width: 600px) {
   .chat-window {

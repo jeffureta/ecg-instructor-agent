@@ -48,28 +48,16 @@
     <div class="tabs-container">
       <div class="container">
         <ul class="tabs tabs-fixed-width">
-          <li class="tab col s3">
+          <li class="tab col s6">
             <a href="#tab-chat" class="active">
               <i class="material-icons tiny">forum</i>
               <span>Preceptor</span>
             </a>
           </li>
-          <li class="tab col s3">
+          <li class="tab col s6">
             <a href="#tab-analyzer">
               <i class="material-icons tiny">analytics</i>
               <span>5-Step Tool</span>
-            </a>
-          </li>
-          <li class="tab col s3">
-            <a href="#tab-stabilization">
-              <i class="material-icons tiny">healing</i>
-              <span>Stabilize</span>
-            </a>
-          </li>
-          <li class="tab col s3">
-            <a href="#tab-library">
-              <i class="material-icons tiny">local_library</i>
-              <span>LITFL</span>
             </a>
           </li>
         </ul>
@@ -105,16 +93,6 @@
             </div>
           </div>
           <span>Clinical preceptor is analyzing rhythm & guidelines...</span>
-        </div>
-
-        <!-- Quick Clinical Practice Prompts -->
-        <div class="quick-prompts">
-          <span class="quick-chip" data-prompt="Teach me the 5 systematic steps and how each step reveals hemodynamic danger.">🎯 5 Steps Primer</span>
-          <span class="quick-chip" data-prompt="Explain the '101' difference between Rate problems and Shape problems and how each crashes blood pressure.">⚡ Rate vs Shape 101</span>
-          <span class="quick-chip" data-prompt="My patient has regular wide complex tachycardia at 170 bpm. Contrast the treatment if they are HEMODYNAMICALLY UNSTABLE vs STABLE.">🚨 Unstable VT vs Stable VT</span>
-          <span class="quick-chip" data-prompt="Patient is an 80yo female with heart rate ~40 bpm, P-waves outnumbering QRS, and narrow complexes. What is the hemodynamic impact and anticipated treatment?">💔 Complete AV Block (40 bpm)</span>
-          <span class="quick-chip" data-prompt="How does hyperkalemia cause sine-wave arrest, and what is the anticipated 3-step stabilization treatment?">🧪 Hyperkalemia & Peaked T</span>
-          <span class="quick-chip" data-prompt="Patient with acute ST elevation in leads II, III, aVF and hypotension: what is the hemodynamic problem and what meds must I HOLD?">🩸 Inferior STEMI & Preload</span>
         </div>
 
         <!-- Chat Input Bar -->
@@ -287,93 +265,6 @@
             <i class="material-icons left">psychology</i>
             Consult Preceptor on This 5-Step Analysis
           </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tab 3: Emergency Bedside Stabilization Checklist -->
-    <section id="tab-stabilization" class="col s12" style="display:none;">
-      <div class="material-card">
-        <div class="card-title-row">
-          <h2 class="card-title-text"><i class="material-icons red-text">health_and_safety</i> Emergency Bedside Stabilization</h2>
-          <span class="badge-pill badge-danger">Stabilize First Doctrine</span>
-        </div>
-        <p class="grey-text text-darken-2" style="margin-top:0; font-size:0.92rem;">
-          In acute telemetry, hemodynamic stability dictates immediate action. <strong>Never wait for written orders if the patient shows signs of hypoperfusion:</strong>
-        </p>
-
-        <div class="checklist-item">
-          <div class="checklist-num">1</div>
-          <div class="checklist-content">
-            <h5>Assess Hemodynamic Instability Signs</h5>
-            <p>Check for hypotension (MAP &lt; 65), acute altered mental status, ischemic chest pain, or acute pulmonary edema.</p>
-          </div>
-        </div>
-
-        <div class="checklist-item">
-          <div class="checklist-num">2</div>
-          <div class="checklist-content">
-            <h5>Airway, Oxygenation, & Vital Signs</h5>
-            <p>Apply high-flow O2 if sat &lt; 94% or dyspneic. Establish continuous multi-lead telemetry, cycle NIBP every 2-3 minutes.</p>
-          </div>
-        </div>
-
-        <div class="checklist-item">
-          <div class="checklist-num">3</div>
-          <div class="checklist-content">
-            <h5>Obtain Rapid Large-Bore IV Access</h5>
-            <p>Secure two 18G or 16G peripheral IV lines immediately for resuscitation medications and volume loading.</p>
-          </div>
-        </div>
-
-        <div class="checklist-item">
-          <div class="checklist-num">4</div>
-          <div class="checklist-content">
-            <h5>Attach Defibrillator / Pacing Combo Pads</h5>
-            <p>Place combo pads (anterior-posterior or sternum-apex) immediately if rate &lt; 50 bpm or &gt; 150 bpm with compromise.</p>
-          </div>
-        </div>
-
-        <div class="checklist-item">
-          <div class="checklist-num">5</div>
-          <div class="checklist-content">
-            <h5>Execute Algorithmic ACLS Interventions</h5>
-            <p>
-              <strong>Symptomatic Bradycardia:</strong> IV Atropine 1 mg push (repeat q3-5m to max 3 mg) &rarr; Transcutaneous Pacing &rarr; Epinephrine/Dopamine drip.<br>
-              <strong>Unstable Tachycardia:</strong> Immediate Synchronized Cardioversion (Narrow regular: 50-100 J; Wide monomorphic: 100 J; AFib: 120-200 J).<br>
-              <strong>Pulseless VT / VF:</strong> Immediate CPR + Unsynchronized Defibrillation (120-200 J biphasic), Epinephrine 1 mg q3-5m, Amiodarone 300 mg.
-            </p>
-          </div>
-        </div>
-
-        <div class="checklist-item">
-          <div class="checklist-num">6</div>
-          <div class="checklist-content">
-            <h5>Electrolyte Collapse Protocol (Hyperkalemia)</h5>
-            <p>
-              (1) <strong>Stabilize Myocardium:</strong> IV Calcium Gluconate 1-2 g over 2-5 min.<br>
-              (2) <strong>Shift Potassium:</strong> IV Regular Insulin 10 units + D50W 50 mL push + Inhaled Albuterol 10-20 mg.<br>
-              (3) <strong>Eliminate:</strong> IV Furosemide, Lokelma, or emergency hemodialysis.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tab 4: LITFL Reference Library -->
-    <section id="tab-library" class="col s12" style="display:none;">
-      <div class="material-card">
-        <div class="card-title-row">
-          <h2 class="card-title-text"><i class="material-icons green-text text-darken-2">menu_book</i> Life in the Fast Lane (LITFL) Directory</h2>
-          <span class="badge-pill badge-stable">Verified Open-Access</span>
-        </div>
-        <p class="grey-text text-darken-1" style="margin-top:0; font-size:0.9rem;">
-          Verified clinical electrophysiology references from Life in the Fast Lane (LITFL). Click any condition to read authoritative peer-reviewed guidelines.
-        </p>
-
-        <div id="reference-library-list">
-          <!-- Dynamically populated from assets/data/ecg_library.json -->
-          <div class="p-3 grey-text">Loading verified clinical ECG library...</div>
         </div>
       </div>
     </section>
