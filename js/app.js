@@ -6,7 +6,7 @@
 
 import { initializeMaterializeComponents, renderChatMessage, toggleLoadingSpinner, updateAnalyzerBadges } from './ui_controller.js';
 import { saveApiKey, getStoredApiKey, purgeStoredApiKey } from './storage.js';
-import { runTwoAgentClinicalPipeline, sendEcgTutoringQuery } from './api_service.js';
+import { sendEcgTutoringQuery } from './api_service.js';
 import { buildFiveStepAssessment, calculateCorrectedQtc } from './ecg_engine.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -103,16 +103,10 @@ function setupChatInterface() {
             return;
         }
 
-        toggleLoadingSpinner(true, 'Stage 1/2: Consulting Cardiologist / EP Fellow on electrophysiology...');
+        toggleLoadingSpinner(true);
         try {
-            const result = await runTwoAgentClinicalPipeline(text, null, (progress) => {
-                if (progress.stage === 'diagnosing') {
-                    toggleLoadingSpinner(true, 'Stage 1/2: Consulting Cardiologist / EP Fellow on electrophysiology...');
-                } else if (progress.stage === 'translating') {
-                    toggleLoadingSpinner(true, 'Stage 2/2: Translating into simple bedside nursing guidance...');
-                }
-            });
-            renderChatMessage('agent', result.plainLanguageText, result.rawDiagnosticText);
+            const aiResponse = await sendEcgTutoringQuery(text);
+            renderChatMessage('agent', aiResponse);
         } catch (err) {
             renderChatMessage('system', `❌ **Preceptor Error:** ${err.message}`);
         } finally {

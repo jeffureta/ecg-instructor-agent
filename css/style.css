@@ -387,53 +387,6 @@ body {
   border-top: 1px solid var(--google-border);
 }
 
-/* EP Technical Consult Accordion in Chat */
-.ep-consult-accordion {
-  margin-top: 12px;
-  border: 1px solid #d0d7de;
-  border-radius: 8px;
-  background: #f8f9fa;
-  overflow: hidden;
-  font-size: 0.88rem;
-}
-
-.ep-consult-summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px;
-  font-weight: 600;
-  color: #37474f;
-  cursor: pointer;
-  user-select: none;
-  background: #eceff1;
-  transition: background-color 0.2s ease;
-}
-
-.ep-consult-summary:hover {
-  background: #e2e7eb;
-}
-
-.ep-consult-summary::-webkit-details-marker {
-  display: none;
-}
-
-.ep-consult-content {
-  padding: 12px 14px;
-  border-top: 1px solid #e0e0e0;
-  color: #263238;
-  line-height: 1.5;
-  background: #ffffff;
-}
-
-.ep-consult-content h4,
-.ep-consult-content .chat-section-title {
-  font-size: 0.95rem !important;
-  font-weight: 700 !important;
-  color: #1565c0 !important;
-  margin: 10px 0 4px 0 !important;
-}
-
 /* Modals */
 .modal {
   border-radius: var(--brand-radius);
