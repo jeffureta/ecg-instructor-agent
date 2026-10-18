@@ -84,7 +84,7 @@ ecg-instructor-agent/
   * One-click "Purge Credentials" button to remove stored keys immediately.
 
 ### Step 4: Wire AI Preceptor Client (`js/api_service.js`)
-* Construct didactic clinical system instructions instructing Gemini 2.5 Flash to act as an acute cardiology nurse preceptor.
+* Construct didactic clinical system instructions instructing Gemini 3.8 Flash to act as an acute cardiology nurse preceptor.
 * Ensure low temperature (`0.2`) to eliminate hallucinations and adhere to standard ACLS resuscitation guidelines.
 * Implement structured error parsing (handling quota limits, missing keys, and invalid formats gracefully).
 

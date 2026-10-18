@@ -6,7 +6,7 @@
 
 import { getStoredApiKey } from './storage.js';
 
-const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent';
 
 /**
  * Constructs the clinical preceptor system instruction that defines the AI agent's persona.

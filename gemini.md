@@ -179,7 +179,7 @@ OR
            |                                                                 |-- 3. Fetch Secret Key from
            |                                                                 |      GCP Secret Manager
            |                                                                 |-- 4. Pass through Model Armor
-           |                                                                 |-- 5. Call Gemini 2.5 Flash API
+           |                                                                 |-- 5. Call Gemini 3.8 Flash API
            |<-- 6. Returns Filtered AI Response (JSON) ----------------------|
 
 #### Safeguard Implementation Details:
@@ -333,7 +333,7 @@ Grounded in the 5-part Google Cloud Agent engineering curriculum, the app progre
 
 +----------------------------------------------------------------------------------------------------+
 | 1. CORE ANATOMY (Day 1)                                                                            |
-|    - Brain: Gemini 2.5 Flash (low latency, high reasoning fidelity, cost-effective).              |
+|    - Brain: Gemini 3.8 Flash (low latency, high reasoning fidelity, cost-effective).              |
 |    - Hands: LITFL Reference Tool, 5-Step Interval Engine, ACLS Action Playbook.                  |
 |    - Nervous System: Context Engineering assembling user role, rhythm parameters, and history.     |
 |    - Deployment: GitHub Pages (static client) + Google Cloud Run (serverless secure proxy).        |
