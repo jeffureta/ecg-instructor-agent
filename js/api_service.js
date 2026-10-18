@@ -6,7 +6,7 @@
 
 import { getStoredApiKey } from './storage.js';
 
-const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent';
+export const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent';
 
 /**
  * Constructs the clinical preceptor system instruction that defines the AI agent's persona.
@@ -56,6 +56,73 @@ TONE:
 Supportive, simple American English, direct, structured with bold concepts. Spell out medical abbreviations on first reference. Always empower the nurse to think ahead and protect patient stability.`;
 }
 
+export const MANDATORY_CLINICAL_SECTIONS = Object.freeze([
+    { id: 'provisional_id', title: 'Provisional ID', pattern: /Provisional\s*ID/i },
+    { id: 'differential', title: 'Differential', pattern: /Differential/i },
+    { id: 'hemodynamic_impact', title: 'Hemodynamic Impact', pattern: /Hemodynamic\s*Impact/i },
+    { id: 'treatment', title: 'Treatment / No-Cure Management', pattern: /Treatment|Management/i },
+    { id: 'nursing_role', title: 'Role of the Nurse', pattern: /Role\s*of\s*the\s*Nurse|Nursing/i }
+]);
+
+/**
+ * Validates whether an AI preceptor response contains all 5 required clinical sections.
+ * @param {string} text - Raw text from the AI preceptor.
+ * @returns {{ isValid: boolean, missingSections: string[], foundCount: number }} Validation summary.
+ */
+export function validateClinicalResponseSections(text) {
+    if (typeof text !== 'string' || !text.trim()) {
+        return {
+            isValid: false,
+            missingSections: MANDATORY_CLINICAL_SECTIONS.map(s => s.title),
+            foundCount: 0
+        };
+    }
+
+    const missingSections = [];
+    let foundCount = 0;
+
+    for (const section of MANDATORY_CLINICAL_SECTIONS) {
+        if (section.pattern.test(text)) {
+            foundCount++;
+        } else {
+            missingSections.push(section.title);
+        }
+    }
+
+    return {
+        isValid: missingSections.length === 0,
+        missingSections,
+        foundCount
+    };
+}
+
+/**
+ * Enriches user inquiries to explicitly enforce the 5-step clinical response structure.
+ * Prevents the AI model from shortcutting into a simple one-sentence rhythm identification.
+ * @param {string} rawQuery - The user's typed question or clinical scenario.
+ * @returns {string} Enriched user query ensuring strict compliance with clinical sections.
+ */
+export function formatUserClinicalQuery(rawQuery) {
+    if (!rawQuery || typeof rawQuery !== 'string') return '';
+    const trimmed = rawQuery.trim();
+
+    // If the prompt already has the structured 5-step template, preserve it while ensuring section instructions
+    if (trimmed.includes('MANDATORY PRECEPTOR QUESTIONS:')) {
+        return trimmed;
+    }
+
+    return `${trimmed}
+
+[INSTRUCTION FOR CLINICAL PRECEPTOR]:
+Please analyze this clinical telemetry inquiry and structure your complete response using all 5 mandatory sections:
+### 1. 🎯 Provisional ID
+### 2. 🔍 Differential
+### 3. 🫀 Hemodynamic Impact
+### 4. 💊 Treatment / No-Cure Management
+### 5. 🚨 Role of the Nurse
+Do NOT provide just the rhythm name or an abbreviated summary. Explain the hemodynamic mechanism and nursing stabilization priorities in simple American English.`;
+}
+
 /**
  * Sends a structured ECG query to the Gemini API with system instructions and returns the advice.
  * @param {string} userMessage - Nurse query or synthesized 5-step observations.
@@ -67,6 +134,8 @@ export async function sendEcgTutoringQuery(userMessage) {
         throw new Error('No API key detected. Please configure your Gemini API Key in the settings modal.');
     }
 
+    const enrichedMessage = formatUserClinicalQuery(userMessage);
+
     const payload = {
         system_instruction: {
             parts: [{ text: getSystemInstructions() }]
@@ -74,13 +143,13 @@ export async function sendEcgTutoringQuery(userMessage) {
         contents: [
             {
                 role: 'user',
-                parts: [{ text: userMessage }]
+                parts: [{ text: enrichedMessage }]
             }
         ],
         generationConfig: {
             temperature: 0.2, // Low temperature for high factual clinical fidelity
             topP: 0.95,
-            maxOutputTokens: 1200
+            maxOutputTokens: 2048 // Sufficient headroom for complete 5-section response without truncation
         }
     };
 

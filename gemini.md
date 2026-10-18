@@ -218,6 +218,12 @@ OR
    * **Rate Limiting & Quotas:** Google Cloud Armor or Cloud Run per-IP throttling prevents denial-of-wallet attacks.
    * **Input/Output Sanitization:** Employs Google Cloud **Model Armor** to sanitize prompts against injection and redact accidental Patient Health Information (PHI/PII).
 
+#### 5.3 Baseline Model Selection: Gemini 3.8 Flash
+> **Standard Model Rationale (`gemini-3.8-flash`):**  
+> The application standardizes on `gemini-3.8-flash` (`models/gemini-3.8-flash`) as the current baseline model.  
+> Legacy model versions such as `gemini-2.5-flash` have been deprecated by Google for new users (returning HTTP 404 `NOT_FOUND` errors).  
+> For this educational preceptor application, `gemini-3.8-flash` provides the ideal lightweight balance: low latency, high electrophysiology reasoning fidelity, structured markdown formatting, and cost efficiency. Its fast inference and ACLS adherence make heavier pro models unnecessary for routine rhythm interpretation, 5-step interval analysis, and bedside nursing stabilization guidance.
+
 ---
 
 ## 6. JavaScript Modular Architecture & Coding Standards

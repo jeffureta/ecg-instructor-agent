@@ -218,10 +218,12 @@ SYSTEMATIC 5-STEP ECG FINDINGS:
 - T-Wave / QTc: ${t}, QTc = ${assessment.step5_shapeAndIntervals.qtcMs ? assessment.step5_shapeAndIntervals.qtcMs + ' ms' : 'N/A'} (Dangerous: ${assessment.step5_shapeAndIntervals.isDangerousQtc})
 
 MANDATORY PRECEPTOR QUESTIONS:
-1. What is the provisional rhythm and top differential, and is this primarily a "Rate" or "Shape" problem?
-2. 101 Hemodynamic Mechanism: Precisely how does this rhythm/shape abnormality cause or threaten hemodynamic collapse (Cardia Output = HR × SV, filling time, or loss of pump contractility)?
-3. What medical, interventional, and pharmacologic treatments are anticipated for this patient's current hemodynamic status (${hemoState}) vs. if they were in the opposite state?
-4. What proactive bedside nursing actions must I take immediately before and after physician orders?`;
+Structure your response strictly using all 5 mandatory clinical sections:
+### 1. 🎯 Provisional ID (Name provisional rhythm and classify as 'Rate' or 'Shape' problem)
+### 2. 🔍 Differential (Top 2-3 differentials and exact caliper/strip test to tell them apart)
+### 3. 🫀 Hemodynamic Impact (Explain in simple 101 terms why patient blood pressure/perfusion crashes: CO = HR × SV)
+### 4. 💊 Treatment / No-Cure Management (Contrasting current hemodynamic status: ${hemoState} vs. opposite presentation, and long-term PPM/ablation)
+### 5. 🚨 Role of the Nurse (Immediate bedside stabilization priorities before orders arrive and medication HOLD warnings)`;
 
             // Switch to chat tab
             const tabsInstance = M.Tabs.getInstance(document.querySelector('.tabs'));

@@ -84,6 +84,8 @@ ecg-instructor-agent/
   * One-click "Purge Credentials" button to remove stored keys immediately.
 
 ### Step 4: Wire AI Preceptor Client (`js/api_service.js`)
+* Standardize on **`gemini-3.8-flash`** as the default baseline model (`models/gemini-3.8-flash:generateContent`).
+  * *Note on Deprecation & Efficiency:* Older models like `gemini-2.5-flash` are deprecated for new users and trigger HTTP 404 errors. `gemini-3.8-flash` is the recommended, highly cost-effective basic model that provides more than enough reasoning capability, speed, and safety guardrail support for bedside ECG preceptor tasks.
 * Construct didactic clinical system instructions instructing Gemini 3.8 Flash to act as an acute cardiology nurse preceptor.
 * Ensure low temperature (`0.2`) to eliminate hallucinations and adhere to standard ACLS resuscitation guidelines.
 * Implement structured error parsing (handling quota limits, missing keys, and invalid formats gracefully).

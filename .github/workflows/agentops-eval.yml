@@ -24,6 +24,9 @@ jobs:
       - name: Execute Clinical Electrophysiology Test Suite
         run: node tests/ecg_engine.test.js
 
+      - name: Execute Clinical Preceptor Response Validation Test Suite
+        run: node tests/clinical_response_validation.test.js
+
       - name: Validate Golden Dataset Scenarios
         run: |
           node -e "

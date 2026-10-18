@@ -40,6 +40,50 @@ export function initializeMaterializeComponents() {
 }
 
 /**
+ * Converts preceptor markdown into structured, safe HTML.
+ * Handles headings (###, ##), bullet points (- or *), bold/italics, code spans, and CRLF line breaks.
+ * @param {string} markdownText - Raw markdown text from preceptor or user.
+ * @returns {string} Sanitized formatted HTML string.
+ */
+export function formatMarkdownToHtml(markdownText) {
+    if (typeof markdownText !== 'string' || !markdownText) return '';
+
+    // Normalize Windows CRLF line endings to LF
+    let text = markdownText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+    // Headers with or without trailing newline: match up to newline or end of text
+    text = text.replace(/^###\s+(.*?)$/gm, '<h4 class="chat-section-title">$1</h4>');
+    text = text.replace(/^##\s+(.*?)$/gm, '<h3 class="chat-section-title">$1</h3>');
+    text = text.replace(/^#\s+(.*?)$/gm, '<h2 class="chat-section-title">$1</h2>');
+
+    // Bold, Italics, Code
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    text = text.replace(/`([^`]+)`/g, '<code class="chat-code">$1</code>');
+
+    // Bullet lists (- or *)
+    text = text.replace(/^[*-]\s+(.*?)$/gm, '<li>$1</li>');
+    if (text.includes('<li>')) {
+        text = text.replace(/(<li>.*?<\/li>(?:\s*<li>.*?<\/li>)*)/gs, '<ul>$1</ul>');
+    }
+
+    // Paragraph breaks: split by 2 or more newlines and wrap loose text
+    const paragraphs = text.split(/\n{2,}/);
+    const formattedParagraphs = paragraphs.map(p => {
+        const trimmed = p.trim();
+        if (!trimmed) return '';
+        // If already enclosed in HTML block tags, return as is
+        if (/^<(h[1-6]|ul|ol|div|blockquote)/i.test(trimmed)) {
+            return trimmed;
+        }
+        // Convert single line breaks to <br> inside paragraphs
+        return `<p>${trimmed.replace(/\n/g, '<br>')}</p>`;
+    });
+
+    return formattedParagraphs.filter(Boolean).join('');
+}
+
+/**
  * Creates and appends a structured chat bubble to the study discussion thread.
  * @param {'user' | 'agent' | 'system'} sender - The message origin.
  * @param {string} messageText - The formatted clinical message text.
@@ -60,21 +104,8 @@ export function renderChatMessage(sender, messageText) {
     }
     card.className = `card-panel z-depth-1 chat-card ${colorClass}`;
 
-    // Convert markdown to clean HTML
-    let formattedHtml = messageText
-        .replace(/### (.*?)\n/g, '<h4 class="chat-section-title">$1</h4>')
-        .replace(/## (.*?)\n/g, '<h3 class="chat-section-title">$1</h3>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        .replace(/`([^`]+)`/g, '<code class="chat-code">$1</code>')
-        .replace(/\n\n/g, '<p></p>')
-        .replace(/\n- (.*?)/g, '<li>$1</li>');
-
-    if (formattedHtml.includes('<li>')) {
-        formattedHtml = formattedHtml.replace(/(<li>.*?<\/li>)+/gs, '<ul>$&</ul>');
-    }
-
-    card.innerHTML = formattedHtml;
+    // Convert markdown to clean, structured HTML
+    card.innerHTML = formatMarkdownToHtml(messageText);
     bubbleWrapper.appendChild(card);
     container.appendChild(bubbleWrapper);
     container.scrollTop = container.scrollHeight;
