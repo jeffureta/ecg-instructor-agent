@@ -37,6 +37,10 @@ export function initializeMaterializeComponents() {
     if (collapsibles.length) {
         M.Collapsible.init(collapsibles);
     }
+
+    if (window.M && M.updateTextFields) {
+        M.updateTextFields();
+    }
 }
 
 /**
@@ -95,6 +99,22 @@ export function renderChatMessage(sender, messageText) {
     const bubbleWrapper = document.createElement('div');
     bubbleWrapper.className = `chat-row ${sender === 'user' ? 'user-align' : sender === 'system' ? 'system-align' : 'agent-align'}`;
 
+    // Create avatar element for user or agent
+    let avatarEl = null;
+    if (sender === 'agent') {
+        avatarEl = document.createElement('div');
+        avatarEl.className = 'chat-avatar preceptor-avatar tooltipped';
+        avatarEl.setAttribute('data-position', 'top');
+        avatarEl.setAttribute('data-tooltip', 'Preceptor');
+        avatarEl.textContent = 'P';
+    } else if (sender === 'user') {
+        avatarEl = document.createElement('div');
+        avatarEl.className = 'chat-avatar user-avatar tooltipped';
+        avatarEl.setAttribute('data-position', 'top');
+        avatarEl.setAttribute('data-tooltip', 'User');
+        avatarEl.textContent = 'U';
+    }
+
     const card = document.createElement('div');
     let colorClass = 'white grey-text text-darken-4';
     if (sender === 'user') {
@@ -106,8 +126,24 @@ export function renderChatMessage(sender, messageText) {
 
     // Convert markdown to clean, structured HTML
     card.innerHTML = formatMarkdownToHtml(messageText);
-    bubbleWrapper.appendChild(card);
+
+    if (sender === 'agent' && avatarEl) {
+        bubbleWrapper.appendChild(avatarEl);
+        bubbleWrapper.appendChild(card);
+    } else if (sender === 'user' && avatarEl) {
+        bubbleWrapper.appendChild(card);
+        bubbleWrapper.appendChild(avatarEl);
+    } else {
+        bubbleWrapper.appendChild(card);
+    }
+
     container.appendChild(bubbleWrapper);
+
+    // Initialize tooltip for newly appended avatar
+    if (avatarEl && window.M && M.Tooltip) {
+        M.Tooltip.init(avatarEl);
+    }
+
     container.scrollTop = container.scrollHeight;
 }
 

@@ -36,23 +36,34 @@ body {
 .brand-wrapper {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  height: 100%;
+}
+
+.brand-icon {
+  font-size: 1.8rem;
+}
+
+.brand-title-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
 }
 
 .brand-logo-text {
-  font-weight: 600;
-  font-size: 1.15rem;
+  font-weight: 700;
+  font-size: 1.12rem;
   letter-spacing: -0.2px;
+  color: #ffffff;
 }
 
-.brand-badge {
-  font-size: 0.7rem;
-  background-color: rgba(255, 255, 255, 0.22);
-  padding: 3px 8px;
-  border-radius: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.brand-tagline {
+  font-size: 0.72rem;
   font-weight: 500;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 1px;
 }
 
 /* Tabs */
@@ -183,6 +194,8 @@ body {
 .chat-row {
   display: flex;
   width: 100%;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .user-align {
@@ -195,6 +208,34 @@ body {
 
 .system-align {
   justify-content: center;
+}
+
+/* Chat Avatars */
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(60,64,67,0.2);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.preceptor-avatar {
+  background-color: var(--google-blue);
+  color: #ffffff;
+}
+
+.user-avatar {
+  background-color: #1565c0;
+  color: #ffffff;
 }
 
 .chat-card {
@@ -314,6 +355,57 @@ body {
   margin-top: 4px;
 }
 
+/* Fix Materialize Form Field Overlaps in Step Boxes */
+.step-box .input-field,
+.material-card .input-field {
+  margin-top: 22px !important;
+  margin-bottom: 12px !important;
+  position: relative;
+}
+
+.step-box .input-field input[type="number"],
+.step-box .input-field input[type="text"],
+.material-card .input-field input[type="text"],
+.material-card .input-field input[type="password"] {
+  height: 2.6rem;
+  line-height: 2.6rem;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  box-sizing: border-box;
+}
+
+.step-box .select-wrapper input.select-dropdown,
+.material-card .select-wrapper input.select-dropdown {
+  height: 2.6rem;
+  line-height: 2.6rem;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: var(--google-text-primary);
+}
+
+.step-box .input-field > label,
+.material-card .input-field > label {
+  top: 0;
+  left: 0;
+  transform: translateY(-16px) scale(0.85);
+  transform-origin: 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #3c4043 !important;
+  pointer-events: none;
+}
+
+.step-box .input-field > label.active,
+.material-card .input-field > label.active {
+  transform: translateY(-16px) scale(0.85);
+  font-weight: 600;
+  color: var(--google-blue) !important;
+}
+
+.step-box .input-field + .input-field {
+  margin-top: 24px !important;
+}
+
 
 
 /* Loading Spinner */
@@ -352,9 +444,22 @@ body {
     height: calc(100vh - 180px);
   }
   .brand-logo-text {
-    font-size: 1rem;
+    font-size: 0.95rem;
+  }
+  .brand-tagline {
+    font-size: 0.65rem;
+  }
+  .chat-avatar {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 0.85rem;
+  }
+  .chat-card {
+    max-width: 82%;
   }
   .step-grid {
     grid-template-columns: 1fr;
   }
 }
+
