@@ -109,7 +109,7 @@ ecg-instructor-agent/
 │   └── storage.js                       # Safe local credential store, session history, & bookmarks
 ├── assets/
 │   ├── img/
-│   │   ├── normal_sinus_strip.svg       # Educational reference strip with labeled intervals
+│   │   ├── ECG-waves-segments-and-intervals-LITFL-ECG-library-3.jpg # Verified LITFL reference chart
 │   │   ├── litfl_directory.json         # Offline database of verified LITFL clinical links
 │   │   └── google_ai_icon.svg           # Google branding badge
 │   └── icons/                           # Material Icons local fallback fonts
