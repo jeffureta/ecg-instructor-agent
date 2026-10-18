@@ -1,0 +1,137 @@
+[
+  {
+    "id": "CASE-001",
+    "title": "Hyperkalemia with Peaked T-Waves",
+    "category": "Shape",
+    "inputs": {
+      "heartRate": 68,
+      "isRegular": true,
+      "pWavesPresent": true,
+      "prIntervalMs": 210,
+      "qrsDurationMs": 115,
+      "qtIntervalMs": 380,
+      "stDeviation": "isoelectric",
+      "tWaveMorphology": "peaked"
+    },
+    "expectedAssessment": {
+      "rateClassification": "normal",
+      "prConduction": "prolonged",
+      "qrsWidth": "narrow",
+      "criticalDanger": false
+    },
+    "priorityInterventions": [
+      "IV Calcium Gluconate (1-2 g) immediately to stabilize cardiac cell membranes",
+      "IV Regular Insulin 10 units + D50 50 mL push + Inhaled Albuterol to shift K+ into cells",
+      "Furosemide / Lokelma / emergent hemodialysis to eliminate potassium",
+      "Continuous 12-lead monitoring to anticipate QRS widening into sine-wave arrest"
+    ]
+  },
+  {
+    "id": "CASE-002",
+    "title": "Unstable Monomorphic Ventricular Tachycardia",
+    "category": "Rate / Shape",
+    "inputs": {
+      "heartRate": 175,
+      "isRegular": true,
+      "pWavesPresent": false,
+      "prIntervalMs": 0,
+      "qrsDurationMs": 160,
+      "qtIntervalMs": 280,
+      "stDeviation": "isoelectric",
+      "tWaveMorphology": "normal"
+    },
+    "expectedAssessment": {
+      "rateClassification": "tachycardia",
+      "prConduction": "unspecified",
+      "qrsWidth": "wide",
+      "criticalDanger": false
+    },
+    "priorityInterventions": [
+      "Check pulse immediately (differentiate pulseless VT vs VT with pulse)",
+      "If pulse present but unstable (hypotension, altered mental status): Immediate Synchronized Cardioversion at 100 J biphasic",
+      "Place defibrillator/pacing combo pads on patient (anterior-posterior or sternum-apex)",
+      "If pulseless: Call code blue, start CPR, immediate unsynchronized defibrillation (120-200 J)"
+    ]
+  },
+  {
+    "id": "CASE-003",
+    "title": "Second-Degree AV Block Mobitz Type II",
+    "category": "Rate",
+    "inputs": {
+      "heartRate": 44,
+      "isRegular": false,
+      "pWavesPresent": true,
+      "prIntervalMs": 180,
+      "qrsDurationMs": 105,
+      "qtIntervalMs": 420,
+      "stDeviation": "isoelectric",
+      "tWaveMorphology": "normal"
+    },
+    "expectedAssessment": {
+      "rateClassification": "bradycardia",
+      "prConduction": "normal",
+      "qrsWidth": "narrow",
+      "criticalDanger": false
+    },
+    "priorityInterventions": [
+      "Attach transcutaneous pacing pads immediately (high risk of sudden complete heart block)",
+      "Avoid AV nodal blockers (beta-blockers, CCBs, digoxin)",
+      "Prepare Atropine 1 mg push (note: often ineffective in infranodal Mobitz II)",
+      "Notify cardiology and prepare for temporary transvenous pacing"
+    ]
+  },
+  {
+    "id": "CASE-004",
+    "title": "Critical Drug-Induced QTc Prolongation",
+    "category": "Shape",
+    "inputs": {
+      "heartRate": 62,
+      "isRegular": true,
+      "pWavesPresent": true,
+      "prIntervalMs": 160,
+      "qrsDurationMs": 95,
+      "qtIntervalMs": 520,
+      "stDeviation": "isoelectric",
+      "tWaveMorphology": "normal"
+    },
+    "expectedAssessment": {
+      "rateClassification": "normal",
+      "prConduction": "normal",
+      "qrsWidth": "narrow",
+      "criticalDanger": true
+    },
+    "priorityInterventions": [
+      "Immediately hold all QT-prolonging drugs (Ondansetron, Haloperidol, Amiodarone, Azithromycin)",
+      "Check serum potassium and magnesium levels (target K+ > 4.0 mEq/L, Mg2+ > 2.0 mg/dL)",
+      "Administer IV Magnesium Sulfate (1-2 g over 15-60 min; rapid push if Torsades ensues)",
+      "Continuous cardiac monitoring with defibrillator at bedside"
+    ]
+  },
+  {
+    "id": "CASE-005",
+    "title": "Acute Inferior STEMI",
+    "category": "Shape",
+    "inputs": {
+      "heartRate": 82,
+      "isRegular": true,
+      "pWavesPresent": true,
+      "prIntervalMs": 160,
+      "qrsDurationMs": 90,
+      "qtIntervalMs": 390,
+      "stDeviation": "elevation",
+      "tWaveMorphology": "normal"
+    },
+    "expectedAssessment": {
+      "rateClassification": "normal",
+      "prConduction": "normal",
+      "qrsWidth": "narrow",
+      "criticalDanger": false
+    },
+    "priorityInterventions": [
+      "Activate cardiac catheterization team immediately (target door-to-balloon < 90 min)",
+      "Chewable Aspirin 325 mg immediately",
+      "Obtain right-sided ECG (V4R) before giving Nitroglycerin (rule out RV infarction)",
+      "Apply defibrillator pads and secure dual large-bore IV lines"
+    ]
+  }
+]

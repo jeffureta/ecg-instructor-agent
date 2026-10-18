@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>ECG Instructor AI Agent | Clinical Nursing Preceptor</title>
+  <meta name="description" content="Mobile-first clinical ECG instructor agent for nurses and trainees. Systematic 5-step analysis, rate vs. shape differentiation, and acute stabilization doctrine.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+
+  <!-- Material Icons & Materialize CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <!-- Custom Google Web App & Clinical Theme -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top App Bar (Google Blue) -->
+  <header>
+    <div class="navbar-fixed">
+      <nav class="app-nav">
+        <div class="nav-wrapper container">
+          <div class="brand-wrapper left">
+            <i class="material-icons">monitor_heart</i>
+            <span class="brand-logo-text">ECG Preceptor</span>
+            <span class="brand-badge hide-on-small-only">Nurse Edition</span>
+          </div>
+
+          <ul class="right">
+            <li>
+              <a href="#settings-modal" class="modal-trigger waves-effect waves-light" title="API Key & Safeguards">
+                <i class="material-icons">settings</i>
+              </a>
+            </li>
+            <li>
+              <a href="#about-modal" class="modal-trigger waves-effect waves-light" title="Clinical Doctrine">
+                <i class="material-icons">help_outline</i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-container">
+      <div class="container">
+        <ul class="tabs tabs-fixed-width">
+          <li class="tab col s3">
+            <a href="#tab-chat" class="active">
+              <i class="material-icons tiny">forum</i>
+              <span>Preceptor</span>
+            </a>
+          </li>
+          <li class="tab col s3">
+            <a href="#tab-analyzer">
+              <i class="material-icons tiny">analytics</i>
+              <span>5-Step Tool</span>
+            </a>
+          </li>
+          <li class="tab col s3">
+            <a href="#tab-stabilization">
+              <i class="material-icons tiny">healing</i>
+              <span>Stabilize</span>
+            </a>
+          </li>
+          <li class="tab col s3">
+            <a href="#tab-library">
+              <i class="material-icons tiny">local_library</i>
+              <span>LITFL</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View Area -->
+  <main class="main-content">
+
+    <!-- Tab 1: AI Preceptor Chat -->
+    <section id="tab-chat" class="col s12">
+      <div class="chat-window">
+        <!-- Message Stream -->
+        <div id="chat-messages-container" class="chat-history">
+          <!-- Initial Preceptor Welcome Message -->
+          <div class="chat-row agent-align">
+            <div class="card-panel z-depth-1 chat-card white grey-text text-darken-4">
+              <strong>🩺 Welcome to the ECG Clinical Instructor Preceptor.</strong>
+              <p>I am your clinical preceptor designed to teach you how to systematically interpret ECGs, anticipate medical treatments, and enact the <strong>Stabilize First</strong> nursing doctrine.</p>
+              <p>You can describe a rhythm strip, enter intervals from the <strong>5-Step Tool</strong>, or explore any clinical query below.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic AI Loading Spinner -->
+        <div id="ai-loading-indicator">
+          <div class="preloader-wrapper small active" style="width:20px; height:20px;">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left"><div class="circle"></div></div>
+              <div class="gap-patch"><div class="circle"></div></div>
+              <div class="circle-clipper right"><div class="circle"></div></div>
+            </div>
+          </div>
+          <span>Clinical preceptor is analyzing rhythm & guidelines...</span>
+        </div>
+
+        <!-- Quick Clinical Practice Prompts -->
+        <div class="quick-prompts">
+          <span class="quick-chip" data-prompt="Teach me the 5 systematic steps to read any telemetry strip accurately.">🎯 5 Steps Primer</span>
+          <span class="quick-chip" data-prompt="Explain the difference between Rate problems and Shape problems.">⚡ Rate vs Shape</span>
+          <span class="quick-chip" data-prompt="My patient has regular wide complex tachycardia at 170 bpm with hypotension. What is the priority nursing stabilization?">🚨 Unstable VT Protocol</span>
+          <span class="quick-chip" data-prompt="How do I recognize hyperkalemia on an ECG, and what is the 3-step nursing protocol?">🧪 Peaked T-Waves</span>
+          <span class="quick-chip" data-prompt="Explain Mobitz Type II vs Mobitz Type I and why Mobitz II is an immediate emergency.">⚠️ Mobitz II Danger</span>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="chat-input-bar">
+          <input type="text" id="chat-input" placeholder="Type a telemetry description or ask your preceptor..." autocomplete="off">
+          <button id="send-message-btn" class="btn waves-effect waves-light chat-send-btn" title="Send Query">
+            <i class="material-icons">send</i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: 5-Step Clinical Analyzer -->
+    <section id="tab-analyzer" class="col s12" style="display:none;">
+      <div class="material-card">
+        <div class="card-title-row">
+          <h2 class="card-title-text"><i class="material-icons blue-text">straighten</i> Systematic 5-Step ECG Evaluator</h2>
+          <span class="badge-pill badge-neutral">Bedside Tool</span>
+        </div>
+        <p class="grey-text text-darken-1" style="margin-top:0; font-size:0.9rem;">
+          Enter your observations or measurements below. Normal values are checked automatically in real time using clinical benchmarks.
+        </p>
+
+        <!-- Visual Educational Reference Strip -->
+        <div style="margin: 16px 0; border: 1px solid var(--google-border); border-radius: 12px; overflow: hidden;">
+          <img src="assets/img/normal_sinus_strip.svg" alt="Normal Sinus Rhythm Strip with Labeled Intervals (PR, QRS, ST, QT)" style="width: 100%; display: block;">
+        </div>
+
+        <div class="step-grid">
+          <!-- Step 1: Rate -->
+          <div class="step-box">
+            <div class="step-header">
+              <span class="step-num-title">Step 1: Heart Rate</span>
+              <span id="rate-badge" class="badge-pill badge-neutral">Normal: 60-100</span>
+            </div>
+            <div class="input-field" style="margin-top: 10px;">
+              <input id="input-heart-rate" type="number" min="20" max="300" placeholder="e.g. 75">
+              <label for="input-heart-rate" class="active">Ventricular Rate (bpm)</label>
+            </div>
+            <div class="step-tip">Formula: 300 ÷ large boxes between R-R or (R-waves in 6s) × 10.</div>
+          </div>
+
+          <!-- Step 2: Rhythm Regularity -->
+          <div class="step-box">
+            <div class="step-header">
+              <span class="step-num-title">Step 2: Regularity</span>
+              <span class="badge-pill badge-neutral">R-R Caliper Check</span>
+            </div>
+            <div class="input-field" style="margin-top: 10px;">
+              <select id="input-rhythm-reg">
+                <option value="regular" selected>Regular (Equal R-R intervals)</option>
+                <option value="irregular">Irregularly Irregular (AFib)</option>
+                <option value="regularly-irregular">Regularly Irregular (Grouped/Dropped)</option>
+              </select>
+              <label class="active">Rhythm Regularity</label>
+            </div>
+            <div class="step-tip">Check across the full rhythm strip using paper mark or calipers.</div>
+          </div>
+
+          <!-- Step 3: P-Waves -->
+          <div class="step-box">
+            <div class="step-header">
+              <span class="step-num-title">Step 3: P-Wave Morphology</span>
+              <span class="badge-pill badge-neutral">Atrial Depolarization</span>
+            </div>
+            <div class="input-field" style="margin-top: 10px;">
+              <select id="input-p-waves">
+                <option value="present" selected>Present & Upright (1:1 with QRS)</option>
+                <option value="absent">Absent / Chaotic (AFib / SVT)</option>
+                <option value="flutter">Sawtooth Flutter Waves (AFL)</option>
+                <option value="dissociated">AV Dissociation (3rd Degree Block)</option>
+              </select>
+              <label class="active">P-Wave Status</label>
+            </div>
+            <div class="step-tip">Inspect Lead II. Look for consistent shape and 1:1 QRS relationship.</div>
+          </div>
+
+          <!-- Step 4: PR Interval Conduction -->
+          <div class="step-box">
+            <div class="step-header">
+              <span class="step-num-title">Step 4: PR Interval</span>
+              <span id="pr-badge" class="badge-pill badge-neutral">Normal: 120-200 ms</span>
+            </div>
+            <div class="input-field" style="margin-top: 10px;">
+              <input id="input-pr-interval" type="number" min="60" max="600" placeholder="e.g. 160">
+              <label for="input-pr-interval" class="active">PR Interval (ms)</label>
+            </div>
+            <div class="step-tip">3 to 5 small boxes. &gt; 200 ms indicates First-Degree AV Block.</div>
+          </div>
+
+          <!-- Step 5A: QRS Duration -->
+          <div class="step-box">
+            <div class="step-header">
+              <span class="step-num-title">Step 5: QRS Width</span>
+              <span id="qrs-badge" class="badge-pill badge-neutral">Normal: &lt; 120 ms</span>
+            </div>
+            <div class="input-field" style="margin-top: 10px;">
+              <input id="input-qrs-duration" type="number" min="40" max="300" placeholder="e.g. 90">
+              <label for="input-qrs-duration" class="active">QRS Duration (ms)</label>
+            </div>
+            <div class="step-tip">&ge; 120 ms (&ge; 3 small boxes) = BBB or Ventricular origin.</div>
+          </div>
+
+          <!-- Step 5B: QT & QTc Interval -->
+          <div class="step-box">
+            <div class="step-header">
+              <span class="step-num-title">Step 5: QT & Bazett QTc</span>
+              <span id="qtc-badge" class="badge-pill badge-neutral">Awaiting QT/HR</span>
+            </div>
+            <div class="input-field" style="margin-top: 10px;">
+              <input id="input-qt-interval" type="number" min="200" max="800" placeholder="e.g. 380">
+              <label for="input-qt-interval" class="active">Raw QT Interval (ms)</label>
+            </div>
+            <div class="step-tip">QTc &gt; 500 ms = Critical danger for Torsades de Pointes.</div>
+          </div>
+
+          <!-- Step 5C: ST Segment & T-Waves -->
+          <div class="step-box">
+            <div class="step-header">
+              <span class="step-num-title">Step 5: ST & T-Waves</span>
+              <span class="badge-pill badge-neutral">Ischemia / Lytes</span>
+            </div>
+            <div class="input-field" style="margin-top: 10px;">
+              <select id="input-st-deviation">
+                <option value="isoelectric" selected>Isoelectric (Normal baseline)</option>
+                <option value="elevation">ST Elevation (STEMI / Pericarditis)</option>
+                <option value="depression">ST Depression (NSTEMI / Ischemia)</option>
+              </select>
+              <label class="active">ST Deviation</label>
+            </div>
+            <div class="input-field" style="margin-top: 10px;">
+              <select id="input-t-wave">
+                <option value="normal" selected>Normal upright T-wave</option>
+                <option value="peaked">Peaked / Tented (Hyperkalemia)</option>
+                <option value="flattened">Flattened / U-wave (Hypokalemia)</option>
+                <option value="inverted">Inverted (Ischemia / Wellens)</option>
+              </select>
+              <label class="active">T-Wave Morphology</label>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; display:flex; justify-content:flex-end;">
+          <button id="consult-preceptor-btn" class="btn blue darken-2 waves-effect waves-light">
+            <i class="material-icons left">psychology</i>
+            Consult Preceptor on This 5-Step Analysis
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Emergency Bedside Stabilization Checklist -->
+    <section id="tab-stabilization" class="col s12" style="display:none;">
+      <div class="material-card">
+        <div class="card-title-row">
+          <h2 class="card-title-text"><i class="material-icons red-text">health_and_safety</i> Emergency Bedside Stabilization</h2>
+          <span class="badge-pill badge-danger">Stabilize First Doctrine</span>
+        </div>
+        <p class="grey-text text-darken-2" style="margin-top:0; font-size:0.92rem;">
+          In acute telemetry, hemodynamic stability dictates immediate action. <strong>Never wait for written orders if the patient shows signs of hypoperfusion:</strong>
+        </p>
+
+        <div class="checklist-item">
+          <div class="checklist-num">1</div>
+          <div class="checklist-content">
+            <h5>Assess Hemodynamic Instability Signs</h5>
+            <p>Check for hypotension (MAP &lt; 65), acute altered mental status, ischemic chest pain, or acute pulmonary edema.</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-num">2</div>
+          <div class="checklist-content">
+            <h5>Airway, Oxygenation, & Vital Signs</h5>
+            <p>Apply high-flow O2 if sat &lt; 94% or dyspneic. Establish continuous multi-lead telemetry, cycle NIBP every 2-3 minutes.</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-num">3</div>
+          <div class="checklist-content">
+            <h5>Obtain Rapid Large-Bore IV Access</h5>
+            <p>Secure two 18G or 16G peripheral IV lines immediately for resuscitation medications and volume loading.</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-num">4</div>
+          <div class="checklist-content">
+            <h5>Attach Defibrillator / Pacing Combo Pads</h5>
+            <p>Place combo pads (anterior-posterior or sternum-apex) immediately if rate &lt; 50 bpm or &gt; 150 bpm with compromise.</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-num">5</div>
+          <div class="checklist-content">
+            <h5>Execute Algorithmic ACLS Interventions</h5>
+            <p>
+              <strong>Symptomatic Bradycardia:</strong> IV Atropine 1 mg push (repeat q3-5m to max 3 mg) &rarr; Transcutaneous Pacing &rarr; Epinephrine/Dopamine drip.<br>
+              <strong>Unstable Tachycardia:</strong> Immediate Synchronized Cardioversion (Narrow regular: 50-100 J; Wide monomorphic: 100 J; AFib: 120-200 J).<br>
+              <strong>Pulseless VT / VF:</strong> Immediate CPR + Unsynchronized Defibrillation (120-200 J biphasic), Epinephrine 1 mg q3-5m, Amiodarone 300 mg.
+            </p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="checklist-num">6</div>
+          <div class="checklist-content">
+            <h5>Electrolyte Collapse Protocol (Hyperkalemia)</h5>
+            <p>
+              (1) <strong>Stabilize Myocardium:</strong> IV Calcium Gluconate 1-2 g over 2-5 min.<br>
+              (2) <strong>Shift Potassium:</strong> IV Regular Insulin 10 units + D50W 50 mL push + Inhaled Albuterol 10-20 mg.<br>
+              (3) <strong>Eliminate:</strong> IV Furosemide, Lokelma, or emergency hemodialysis.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: LITFL Reference Library -->
+    <section id="tab-library" class="col s12" style="display:none;">
+      <div class="material-card">
+        <div class="card-title-row">
+          <h2 class="card-title-text"><i class="material-icons green-text text-darken-2">menu_book</i> Life in the Fast Lane (LITFL) Directory</h2>
+          <span class="badge-pill badge-stable">Verified Open-Access</span>
+        </div>
+        <p class="grey-text text-darken-1" style="margin-top:0; font-size:0.9rem;">
+          Verified clinical electrophysiology references from Life in the Fast Lane (LITFL). Click any condition to read authoritative peer-reviewed guidelines.
+        </p>
+
+        <div id="reference-library-list">
+          <!-- Dynamically populated from assets/data/ecg_library.json -->
+          <div class="p-3 grey-text">Loading verified clinical ECG library...</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Settings / BYOK Modal -->
+  <div id="settings-modal" class="modal">
+    <div class="modal-content">
+      <h3 style="font-size:1.3rem; font-weight:600; margin-top:0; display:flex; align-items:center; gap:8px;">
+        <i class="material-icons blue-text">vpn_key</i>
+        Gemini API Key & Safeguards
+      </h3>
+      <p style="font-size:0.85rem; color:#5f6368;">
+        This application runs statically on GitHub Pages with <strong>Client-Side Bring-Your-Own-Key (BYOK)</strong> security. Your key is stored exclusively inside your local browser and sent directly to Google's official Gemini endpoint. It is never stored on external servers or exposed to source control.
+      </p>
+
+      <div class="input-field" style="margin-top:20px;">
+        <input id="api-key-input" type="password" placeholder="AIzaSy...">
+        <label for="api-key-input" class="active">Google Gemini API Key</label>
+        <span class="helper-text" id="key-status-text">Checking stored credentials...</span>
+      </div>
+
+      <p>
+        <label>
+          <input type="checkbox" id="persist-key-checkbox" />
+          <span>Remember key across browser sessions (saves to localStorage)</span>
+        </label>
+      </p>
+
+      <div style="background:#f1f3f4; padding:10px 14px; border-radius:8px; font-size:0.8rem; margin-top:14px;">
+        💡 Don't have a key? You can get a free key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button id="purge-key-btn" class="modal-close btn-flat red-text waves-effect waves-red">Purge Key</button>
+      <button class="modal-close btn-flat grey-text waves-effect">Cancel</button>
+      <button id="save-key-btn" class="btn blue darken-2 waves-effect waves-light">Save Key</button>
+    </div>
+  </div>
+
+  <!-- About / Doctrine Modal -->
+  <div id="about-modal" class="modal">
+    <div class="modal-content">
+      <h3 style="font-size:1.3rem; font-weight:600; margin-top:0; display:flex; align-items:center; gap:8px;">
+        <i class="material-icons blue-text">school</i>
+        Educational Philosophy & Architecture
+      </h3>
+      <p style="font-size:0.9rem; line-height:1.5;">
+        The <strong>ECG Instructor AI Agent</strong> is an interactive clinical preceptor designed to teach nurses during their study time how to systematically read electrocardiograms (ECGs/EKGs), recognize normal versus pathological electrical patterns, anticipate medical and pharmacologic treatments, and internalize the proactive role of the nurse in preventing hemodynamic collapse.
+      </p>
+      <h6>Core Principles:</h6>
+      <ul style="font-size:0.85rem; line-height:1.6; padding-left:18px;">
+        <li><strong>Bedside Stabilization Over Academic Trivia:</strong> Patient survival and early anticipation of deterioration take priority over obscure trivia.</li>
+        <li><strong>Rate vs. Shape Differentiation:</strong> Rhythm strip conduction analysis vs. 12-lead full morphology (STEMI, peaked T-waves, QTc prolongation).</li>
+        <li><strong>Systematic 5-Step Routine:</strong> (1) Rate, (2) Rhythm Regularity, (3) P-waves, (4) PR interval, (5) QRS & ST/T/QTc.</li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-close btn-flat blue-text waves-effect">Close</button>
+    </div>
+  </div>
+
+  <!-- Materialize JavaScript & Modular Application Orchestrator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

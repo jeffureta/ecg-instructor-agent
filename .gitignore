@@ -1,0 +1,9 @@
+# Environment secrets and credentials
+.env
+*.local
+.DS_Store
+
+# Node / Scratch files
+node_modules/
+dist/
+build/

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="100%" height="auto" style="background:#fffaf8; border-radius:12px; font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;">
+  <defs>
+    <!-- Grid Pattern (1mm small box = 8px, 5mm large box = 40px) -->
+    <pattern id="smallGrid" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M 8 0 L 0 0 0 8" fill="none" stroke="#fed8d4" stroke-width="0.75" />
+    </pattern>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="url(#smallGrid)" />
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#fcaaa3" stroke-width="1.5" />
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a73e8" />
+    </marker>
+  </defs>
+
+  <!-- Background Grid -->
+  <rect width="100%" height="100%" fill="url(#grid)" />
+
+  <!-- ECG Baseline & Waveform (Lead II Normal Sinus Complex) -->
+  <!-- Starts flat at y=180, P-wave (x:140-200), PR segment (200-240), Q (240-250), R (250-265, y=50), S (265-280, y=210), ST segment (280-360), T-wave (360-460, y=120), return to 180 -->
+  <path d="M 20 180 
+           L 130 180 
+           C 145 180, 160 145, 175 145 
+           C 190 145, 205 180, 220 180 
+           L 245 180 
+           L 252 195 
+           L 266 45 
+           L 280 215 
+           L 288 180 
+           L 360 180 
+           C 385 180, 405 110, 425 110 
+           C 445 110, 465 180, 490 180 
+           L 780 180" 
+        fill="none" stroke="#c62828" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Wave Labels -->
+  <text x="175" y="130" font-size="16" font-weight="bold" fill="#202124" text-anchor="middle">P Wave</text>
+  <text x="266" y="32" font-size="18" font-weight="bold" fill="#1a73e8" text-anchor="middle">R</text>
+  <text x="246" y="215" font-size="14" font-weight="bold" fill="#5f6368" text-anchor="middle">Q</text>
+  <text x="286" y="235" font-size="14" font-weight="bold" fill="#5f6368" text-anchor="middle">S</text>
+  <text x="425" y="95" font-size="16" font-weight="bold" fill="#202124" text-anchor="middle">T Wave</text>
+
+  <!-- Clinical Interval Measurement Brackets & Indicators -->
+  <!-- PR Interval (Start of P to start of QRS: x:130 to x:245) -->
+  <line x1="130" y1="180" x2="130" y2="250" stroke="#1a73e8" stroke-width="1.5" stroke-dasharray="3,3" />
+  <line x1="245" y1="180" x2="245" y2="250" stroke="#1a73e8" stroke-width="1.5" stroke-dasharray="3,3" />
+  <line x1="130" y1="245" x2="245" y2="245" stroke="#1a73e8" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+  <text x="187" y="240" font-size="13" font-weight="bold" fill="#1a73e8" text-anchor="middle">PR Interval (120 - 200 ms)</text>
+
+  <!-- QRS Duration (Start of Q to end of S: x:245 to x:288) -->
+  <line x1="288" y1="180" x2="288" y2="275" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="3,3" />
+  <line x1="245" y1="250" x2="245" y2="275" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="3,3" />
+  <line x1="245" y1="270" x2="288" y2="270" stroke="#2e7d32" stroke-width="2" />
+  <text x="266" y="292" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">QRS &lt; 120 ms</text>
+
+  <!-- ST Segment (End of S to beginning of T: x:288 to x:360) -->
+  <line x1="360" y1="180" x2="360" y2="225" stroke="#b26a00" stroke-width="1.5" stroke-dasharray="3,3" />
+  <line x1="288" y1="215" x2="288" y2="225" stroke="#b26a00" stroke-width="1.5" stroke-dasharray="3,3" />
+  <line x1="288" y1="220" x2="360" y2="220" stroke="#b26a00" stroke-width="2" />
+  <text x="324" y="212" font-size="12" font-weight="bold" fill="#b26a00" text-anchor="middle">ST Segment (Isoelectric)</text>
+
+  <!-- QT / QTc Interval (Start of Q to end of T: x:245 to x:490) -->
+  <line x1="490" y1="180" x2="490" y2="275" stroke="#6a1b9a" stroke-width="1.5" stroke-dasharray="3,3" />
+  <line x1="245" y1="270" x2="245" y2="295" stroke="#6a1b9a" stroke-width="1.5" stroke-dasharray="3,3" />
+  <line x1="490" y1="275" x2="490" y2="295" stroke="#6a1b9a" stroke-width="1.5" stroke-dasharray="3,3" />
+  <line x1="245" y1="290" x2="490" y2="290" stroke="#6a1b9a" stroke-width="2" />
+  <text x="367" y="308" font-size="13" font-weight="bold" fill="#6a1b9a" text-anchor="middle">QT Interval (QTc &lt; 450/460 ms, Danger &gt; 500 ms)</text>
+</svg>

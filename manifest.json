@@ -1,0 +1,16 @@
+{
+  "short_name": "ECGPreceptor",
+  "name": "ECG Instructor AI Agent",
+  "description": "Mobile-First Clinical ECG Preceptor for Nurses & Trainees",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#1a73e8",
+  "icons": [
+    {
+      "src": "assets/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

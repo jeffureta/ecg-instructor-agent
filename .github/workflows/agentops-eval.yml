@@ -1,0 +1,37 @@
+name: AgentOps Evaluation & Quality Gate
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  clinical-quality-gate:
+    name: Clinical Accuracy & Boundary Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Execute Clinical Electrophysiology Test Suite
+        run: node tests/ecg_engine.test.js
+
+      - name: Validate Golden Dataset Scenarios
+        run: |
+          node -e "
+            const fs = require('fs');
+            const data = JSON.parse(fs.readFileSync('assets/data/golden_scenarios.json', 'utf8'));
+            if (!Array.isArray(data) || data.length === 0) {
+              console.error('Golden scenario dataset is empty or invalid');
+              process.exit(1);
+            }
+            console.log('✓ Successfully validated ' + data.length + ' golden clinical scenarios.');
+          "

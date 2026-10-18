@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Sinus Tachycardia",
+    "category": "Rate",
+    "rate": "101 - 160 bpm",
+    "rhythm": "Regular",
+    "summary": "Physiologic response to fever, hypovolemia, pain, hypoxia, sepsis. Treat the underlying cause; do NOT give beta-blockers for compensatory tachycardia.",
+    "litfl_url": "https://litfl.com/sinus-tachycardia-ecg-library/"
+  },
+  {
+    "name": "Atrial Fibrillation (AFib)",
+    "category": "Rate",
+    "rate": "Variable (often 110 - 180 uncontrolled)",
+    "rhythm": "Irregularly Irregular",
+    "summary": "Absent distinct P-waves, chaotic baseline. If unstable: synchronized cardioversion (120-200 J). If stable: rate control (IV Diltiazem or Metoprolol), stroke risk reduction (anticoagulation).",
+    "litfl_url": "https://litfl.com/atrial-fibrillation-ecg-library/"
+  },
+  {
+    "name": "Atrial Flutter",
+    "category": "Rate",
+    "rate": "Ventricular ~150 bpm (2:1 block), Atrial ~300 bpm",
+    "rhythm": "Regular or variable",
+    "summary": "Sawtooth 'F' flutter waves prominent in II, III, aVF. Rate control, anticoagulation, synchronized cardioversion if unstable, catheter ablation long-term.",
+    "litfl_url": "https://litfl.com/atrial-flutter-ecg-library/"
+  },
+  {
+    "name": "Paroxysmal Supraventricular Tachycardia (PSVT)",
+    "category": "Rate",
+    "rate": "150 - 220 bpm",
+    "rhythm": "Regular narrow complex",
+    "summary": "Re-entrant SVT. If unstable: synchronized cardioversion. If stable: vagal maneuvers, then rapid IV push Adenosine (6 mg followed by 12 mg with saline flush).",
+    "litfl_url": "https://litfl.com/supraventricular-tachycardia-ecg-library/"
+  },
+  {
+    "name": "Ventricular Tachycardia (VT)",
+    "category": "Rate / Shape",
+    "rate": "120 - 250 bpm",
+    "rhythm": "Wide regular (QRS > 120 ms)",
+    "summary": "Monomorphic or polymorphic. Pulseless: CPR + immediate unsynchronized defibrillation. Unstable with pulse: synchronized cardioversion (100 J). Stable: IV Amiodarone 150 mg over 10 min.",
+    "litfl_url": "https://litfl.com/ventricular-tachycardia-monomorphic-ecg-library/"
+  },
+  {
+    "name": "Ventricular Fibrillation (VF)",
+    "category": "Rate / Shape",
+    "rate": "Disorganized (300+ bpm)",
+    "rhythm": "Chaotic / no cardiac output",
+    "summary": "Cardiac arrest. Immediate CPR + Defibrillation (120-200 J biphasic), IV Epinephrine 1 mg q3-5min, IV Amiodarone 300 mg (1st dose) / 150 mg (2nd dose).",
+    "litfl_url": "https://litfl.com/ventricular-fibrillation-ecg-library/"
+  },
+  {
+    "name": "Symptomatic Sinus Bradycardia",
+    "category": "Rate",
+    "rate": "< 60 bpm",
+    "rhythm": "Regular",
+    "summary": "If symptomatic (hypotensive, dizzy, diaphoresis): IV Atropine 1 mg rapid push (repeat q3-5m to max 3 mg), prepare transcutaneous pacing, Epinephrine or Dopamine infusion.",
+    "litfl_url": "https://litfl.com/sinus-bradycardia-ecg-library/"
+  },
+  {
+    "name": "2nd Degree AV Block Mobitz II",
+    "category": "Rate",
+    "rate": "Bradycardic to normal",
+    "rhythm": "Irregular dropped beats",
+    "summary": "Fixed PR interval with sudden dropped QRS complexes. High risk of immediate progression to Complete Heart Block. Attach pacing pads immediately; prepare temporary/permanent pacing.",
+    "litfl_url": "https://litfl.com/second-degree-atrioventricular-block-mobitz-2/"
+  },
+  {
+    "name": "3rd Degree (Complete) Heart Block",
+    "category": "Rate",
+    "rate": "Ventricular 20 - 40 bpm",
+    "rhythm": "Regular AV dissociation",
+    "summary": "P-waves and QRS complexes completely independent. Atropine usually ineffective. Immediate transcutaneous pacing, prepare transvenous pacing, urgent cardiology/ICU.",
+    "litfl_url": "https://litfl.com/complete-heart-block-ecg-library/"
+  },
+  {
+    "name": "ST-Elevation Myocardial Infarction (STEMI)",
+    "category": "Shape",
+    "rate": "Variable",
+    "rhythm": "Variable",
+    "summary": "J-point ST elevation >= 1 mm in limb leads or >= 1.5 - 2.5 mm in precordial leads in contiguous leads. Urgent cath lab activation (<90 min door-to-balloon), chewable Aspirin 325 mg, Heparin, dual antiplatelets.",
+    "litfl_url": "https://litfl.com/st-elevation-in-ecg-library/"
+  },
+  {
+    "name": "Hyperkalemia (Peaked T-Waves)",
+    "category": "Shape",
+    "rate": "Normal to bradycardic",
+    "rhythm": "Variable",
+    "summary": "Tall, peaked, tented T-waves, widening QRS heralds sine-wave arrest. 3-step stabilization: (1) IV Calcium Gluconate (membrane stabilization), (2) IV Insulin + D50 + inhaled Albuterol (intracellular shift), (3) Lokelma / Furosemide / Dialysis (excretion).",
+    "litfl_url": "https://litfl.com/hyperkalaemia-ecg-library/"
+  },
+  {
+    "name": "Hypokalemia & Hypomagnesemia",
+    "category": "Shape",
+    "rate": "Variable",
+    "rhythm": "Variable",
+    "summary": "ST depression, flattened/inverted T-waves, prominent U-waves in V2-V3. High ectopy & Torsades risk. Replenish Potassium Chloride (target > 4.0 mEq/L) and IV Magnesium Sulfate.",
+    "litfl_url": "https://litfl.com/hypokalaemia-ecg-library/"
+  },
+  {
+    "name": "Critical QTc Prolongation (> 500 ms)",
+    "category": "Shape",
+    "rate": "Variable",
+    "rhythm": "Variable",
+    "summary": "QTc > 500 ms poses severe danger of polymorphic VT (Torsades de Pointes). Discontinue all QT-prolonging drugs immediately (Zofran, Amiodarone, Haloperidol), check lytes, give IV Magnesium Sulfate (2 g over 1-2 min).",
+    "litfl_url": "https://litfl.com/qt-interval-ecg-library/"
+  },
+  {
+    "name": "Left Bundle Branch Block (LBBB)",
+    "category": "Shape",
+    "rate": "Variable",
+    "rhythm": "Wide QRS (>= 120 ms)",
+    "summary": "Broad notched R-wave in I, aVL, V5-V6; deep QS complex in V1. New LBBB with ischemic symptoms is considered STEMI-equivalent (apply Sgarbossa criteria).",
+    "litfl_url": "https://litfl.com/left-bundle-branch-block-lbbb-ecg-library/"
+  }
+]
