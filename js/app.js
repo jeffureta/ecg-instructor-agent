@@ -168,6 +168,16 @@ function setupAnalyzerTab() {
         return assessment;
     }
 
+    const hemoSelect = document.getElementById('input-hemo-stability');
+    const hemoBadge = document.getElementById('hemo-status-badge');
+    if (hemoSelect && hemoBadge) {
+        hemoSelect.addEventListener('change', () => {
+            const isUnstable = hemoSelect.value === 'unstable';
+            hemoBadge.textContent = isUnstable ? 'CRITICAL / UNSTABLE' : 'STABLE / COMPENSATED';
+            hemoBadge.className = `badge-pill ${isUnstable ? 'badge-danger' : 'badge-stable'}`;
+        });
+    }
+
     [hrInput, rhythmSelect, pWaveSelect, prInput, qrsInput, qtInput, stSelect, tWaveSelect].forEach(el => {
         if (el) {
             el.addEventListener('input', recalculate);
@@ -182,21 +192,36 @@ function setupAnalyzerTab() {
             const pr = prInput ? prInput.value : '';
             const qrs = qrsInput ? qrsInput.value : '';
             const qt = qtInput ? qtInput.value : '';
-            const reg = rhythmSelect ? rhythmSelect.value : '';
-            const p = pWaveSelect ? pWaveSelect.value : '';
-            const st = stSelect ? stSelect.value : '';
-            const t = tWaveSelect ? tWaveSelect.value : '';
+            const reg = rhythmSelect ? rhythmSelect.options[rhythmSelect.selectedIndex].text : '';
+            const p = pWaveSelect ? pWaveSelect.options[pWaveSelect.selectedIndex].text : '';
+            const st = stSelect ? stSelect.options[stSelect.selectedIndex].text : '';
+            const t = tWaveSelect ? tWaveSelect.options[tWaveSelect.selectedIndex].text : '';
 
-            const prompt = `Please review my systematic 5-Step ECG analysis:
-- Heart Rate: ${hr ? hr + ' bpm' : 'not entered'} (${assessment.step1_rate.classification})
-- Rhythm Regularity: ${reg}
-- P-Waves: ${p}
-- PR Interval: ${pr ? pr + ' ms' : 'not entered'} (${assessment.step4_prInterval.conduction})
-- QRS Duration: ${qrs ? qrs + ' ms' : 'not entered'} (${assessment.step5_shapeAndIntervals.qrsWidth})
+            const hemoSelect = document.getElementById('input-hemo-stability');
+            const symptomsInput = document.getElementById('input-patient-symptoms');
+            const hemoState = hemoSelect ? (hemoSelect.value === 'unstable' ? 'UNSTABLE (Hypotension / Hypoperfusion / Shock)' : 'STABLE') : 'UNSTABLE';
+            const symptoms = symptomsInput && symptomsInput.value.trim() ? symptomsInput.value.trim() : 'Not specified';
+
+            const prompt = `Please provide an expert Clinical Preceptor analysis for this telemetry case:
+
+PATIENT CLINICAL PRESENTATION:
+- Hemodynamic Status: ${hemoState}
+- Signs & Symptoms: ${symptoms}
+
+SYSTEMATIC 5-STEP ECG FINDINGS:
+- Step 1 (Rate): ${hr ? hr + ' bpm' : 'not specified'} (${assessment.step1_rate.classification})
+- Step 2 (Rhythm Regularity): ${reg}
+- Step 3 (P-Waves): ${p}
+- Step 4 (PR Interval): ${pr ? pr + ' ms' : 'not entered'} (${assessment.step4_prInterval.conduction})
+- Step 5 (QRS Width & Shape): ${qrs ? qrs + ' ms' : 'not entered'} (${assessment.step5_shapeAndIntervals.qrsWidth})
 - ST Deviation: ${st}
 - T-Wave / QTc: ${t}, QTc = ${assessment.step5_shapeAndIntervals.qtcMs ? assessment.step5_shapeAndIntervals.qtcMs + ' ms' : 'N/A'} (Dangerous: ${assessment.step5_shapeAndIntervals.isDangerousQtc})
 
-What is your clinical evaluation, differential diagnosis, potential deterioration risks, and what are my priority nursing interventions to stabilize this patient?`;
+MANDATORY PRECEPTOR QUESTIONS:
+1. What is the provisional rhythm and top differential, and is this primarily a "Rate" or "Shape" problem?
+2. 101 Hemodynamic Mechanism: Precisely how does this rhythm/shape abnormality cause or threaten hemodynamic collapse (Cardia Output = HR × SV, filling time, or loss of pump contractility)?
+3. What medical, interventional, and pharmacologic treatments are anticipated for this patient's current hemodynamic status (${hemoState}) vs. if they were in the opposite state?
+4. What proactive bedside nursing actions must I take immediately before and after physician orders?`;
 
             // Switch to chat tab
             const tabsInstance = M.Tabs.getInstance(document.querySelector('.tabs'));

@@ -109,11 +109,12 @@
 
         <!-- Quick Clinical Practice Prompts -->
         <div class="quick-prompts">
-          <span class="quick-chip" data-prompt="Teach me the 5 systematic steps to read any telemetry strip accurately.">🎯 5 Steps Primer</span>
-          <span class="quick-chip" data-prompt="Explain the difference between Rate problems and Shape problems.">⚡ Rate vs Shape</span>
-          <span class="quick-chip" data-prompt="My patient has regular wide complex tachycardia at 170 bpm with hypotension. What is the priority nursing stabilization?">🚨 Unstable VT Protocol</span>
-          <span class="quick-chip" data-prompt="How do I recognize hyperkalemia on an ECG, and what is the 3-step nursing protocol?">🧪 Peaked T-Waves</span>
-          <span class="quick-chip" data-prompt="Explain Mobitz Type II vs Mobitz Type I and why Mobitz II is an immediate emergency.">⚠️ Mobitz II Danger</span>
+          <span class="quick-chip" data-prompt="Teach me the 5 systematic steps and how each step reveals hemodynamic danger.">🎯 5 Steps Primer</span>
+          <span class="quick-chip" data-prompt="Explain the '101' difference between Rate problems and Shape problems and how each crashes blood pressure.">⚡ Rate vs Shape 101</span>
+          <span class="quick-chip" data-prompt="My patient has regular wide complex tachycardia at 170 bpm. Contrast the treatment if they are HEMODYNAMICALLY UNSTABLE vs STABLE.">🚨 Unstable VT vs Stable VT</span>
+          <span class="quick-chip" data-prompt="Patient is an 80yo female with heart rate ~40 bpm, P-waves outnumbering QRS, and narrow complexes. What is the hemodynamic impact and anticipated treatment?">💔 Complete AV Block (40 bpm)</span>
+          <span class="quick-chip" data-prompt="How does hyperkalemia cause sine-wave arrest, and what is the anticipated 3-step stabilization treatment?">🧪 Hyperkalemia & Peaked T</span>
+          <span class="quick-chip" data-prompt="Patient with acute ST elevation in leads II, III, aVF and hypotension: what is the hemodynamic problem and what meds must I HOLD?">🩸 Inferior STEMI & Preload</span>
         </div>
 
         <!-- Chat Input Bar -->
@@ -252,6 +253,31 @@
                 <option value="inverted">Inverted (Ischemia / Wellens)</option>
               </select>
               <label class="active">T-Wave Morphology</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clinical Patient Presentation & Hemodynamic Stability -->
+        <div class="material-card" style="margin-top: 18px; border-left: 4px solid var(--danger-red); background: #fcfdfe;">
+          <div class="card-title-row" style="margin-bottom: 8px;">
+            <h3 class="card-title-text" style="font-size: 1rem;"><i class="material-icons red-text">vital_signs</i> Patient Presentation & Hemodynamic Stability</h3>
+            <span id="hemo-status-badge" class="badge-pill badge-danger">Unstable Criteria Check</span>
+          </div>
+          <p class="grey-text text-darken-1" style="font-size: 0.85rem; margin-top: 0;">
+            Hemodynamic stability dictates immediate ACLS actions. Select patient's active bedside presentation:
+          </p>
+
+          <div class="row" style="margin-bottom: 0;">
+            <div class="input-field col s12 m6" style="margin-top: 8px;">
+              <select id="input-hemo-stability">
+                <option value="unstable" selected>🚨 HEMODYNAMICALLY UNSTABLE (Hypotension, AMS, Chest Pain, Shock)</option>
+                <option value="stable">✅ HEMODYNAMICALLY STABLE (Normotensive, Alert, No Ischemia)</option>
+              </select>
+              <label class="active">Hemodynamic State</label>
+            </div>
+            <div class="input-field col s12 m6" style="margin-top: 8px;">
+              <input id="input-patient-symptoms" type="text" placeholder="e.g. Diaphoretic, BP 76/40, dizzy, pale" value="Hypotensive BP 80/45, dizzy, diaphoretic">
+              <label for="input-patient-symptoms" class="active">Bedside Signs & Symptoms</label>
             </div>
           </div>
         </div>
