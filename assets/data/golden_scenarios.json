@@ -133,5 +133,44 @@
       "Obtain right-sided ECG (V4R) before giving Nitroglycerin (rule out RV infarction)",
       "Apply defibrillator pads and secure dual large-bore IV lines"
     ]
+  },
+  {
+    "id": "CASE-006",
+    "title": "Elderly Syncope with Bradycardic AFib & Left Bundle Branch Block / STEMI-Equivalent",
+    "category": "Rate / Shape",
+    "prompt": "I have a 80 year-old female patient presented in the ED with syncope and having falls. The ECG shows heart rate of about 45 beats per minute. The QRS complexes are irregular and are 150ms. There are no clear P waves. There are ST-Elevation and negative QRS to V1, V2, and V3. V6 has a positive QRS complex.",
+    "inputs": {
+      "heartRate": 45,
+      "isRegular": false,
+      "pWavesPresent": false,
+      "prIntervalMs": 0,
+      "qrsDurationMs": 150,
+      "qtIntervalMs": 480,
+      "stDeviation": "elevation",
+      "tWaveMorphology": "discordant"
+    },
+    "expectedAssessment": {
+      "rateClassification": "bradycardia",
+      "prConduction": "unspecified",
+      "qrsWidth": "wide",
+      "criticalDanger": false
+    },
+    "clinicalKeywords": [
+      "Atrial Fibrillation",
+      "Left Bundle Branch Block",
+      "Sgarbossa",
+      "pacing",
+      "pacemaker",
+      "syncope"
+    ],
+    "priorityInterventions": [
+      "Apply transcutaneous combo pacing pads immediately to stabilize severe bradycardia (45 bpm)",
+      "Establish dual large-bore IV access and cycle vitals every 2-3 minutes",
+      "Strict bed rest and fall precautions for post-syncope elderly patient",
+      "Stat 12-lead ECG and chart review to compare prior ECG (evaluate modified Sgarbossa criteria / new LBBB anterior STEMI-equivalent)",
+      "Withhold all AV nodal blocking medications (beta-blockers, CCBs, digoxin)",
+      "Prepare for emergent transvenous or permanent pacemaker (PPM) placement and cath lab activation if Sgarbossa positive"
+    ]
   }
 ]
+

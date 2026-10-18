@@ -123,20 +123,17 @@ Please analyze this clinical telemetry inquiry and structure your complete respo
 Do NOT provide just the rhythm name or an abbreviated summary. Explain the hemodynamic mechanism and nursing stabilization priorities in simple American English.`;
 }
 
+export const DEFAULT_MAX_OUTPUT_TOKENS = 8192;
+
 /**
- * Sends a structured ECG query to the Gemini API with system instructions and returns the advice.
+ * Builds the standard Gemini API payload with system instructions, user query enrichment, and generation parameters.
  * @param {string} userMessage - Nurse query or synthesized 5-step observations.
- * @returns {Promise<string>} The agent's formatted clinical guidance.
+ * @param {number} [maxTokens=DEFAULT_MAX_OUTPUT_TOKENS] - Maximum output tokens allowance.
+ * @returns {Object} JSON payload ready for Gemini API.
  */
-export async function sendEcgTutoringQuery(userMessage) {
-    const apiKey = getStoredApiKey();
-    if (!apiKey) {
-        throw new Error('No API key detected. Please configure your Gemini API Key in the settings modal.');
-    }
-
+export function buildEcgTutoringPayload(userMessage, maxTokens = DEFAULT_MAX_OUTPUT_TOKENS) {
     const enrichedMessage = formatUserClinicalQuery(userMessage);
-
-    const payload = {
+    return {
         system_instruction: {
             parts: [{ text: getSystemInstructions() }]
         },
@@ -149,9 +146,27 @@ export async function sendEcgTutoringQuery(userMessage) {
         generationConfig: {
             temperature: 0.2, // Low temperature for high factual clinical fidelity
             topP: 0.95,
-            maxOutputTokens: 2048 // Sufficient headroom for complete 5-section response without truncation
+            maxOutputTokens: maxTokens // Generous allowance (8192) so preceptor never truncates mid-sentence
         }
     };
+}
+
+/**
+ * Sends a structured ECG query to the Gemini API with system instructions and returns the advice.
+ * @param {string} userMessage - Nurse query or synthesized 5-step observations.
+ * @param {string} [apiKeyOverride=null] - Optional API key override (for testing or direct injection).
+ * @returns {Promise<string>} The agent's formatted clinical guidance.
+ */
+export async function sendEcgTutoringQuery(userMessage, apiKeyOverride = null) {
+    const apiKey = apiKeyOverride || 
+        getStoredApiKey() || 
+        (typeof process !== 'undefined' && process.env?.GEMINI_API_KEY ? process.env.GEMINI_API_KEY : null);
+
+    if (!apiKey) {
+        throw new Error('No API key detected. Please configure your Gemini API Key in the settings modal.');
+    }
+
+    const payload = buildEcgTutoringPayload(userMessage, DEFAULT_MAX_OUTPUT_TOKENS);
 
     const response = await fetch(`${GEMINI_API_ENDPOINT}?key=${encodeURIComponent(apiKey)}`, {
         method: 'POST',
@@ -165,7 +180,13 @@ export async function sendEcgTutoringQuery(userMessage) {
     }
 
     const data = await response.json();
-    const textOutput = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const candidate = data?.candidates?.[0];
+
+    if (candidate?.finishReason === 'MAX_TOKENS') {
+        console.warn('Warning: Gemini API reached maximum token allowance (MAX_TOKENS). The response may be truncated.');
+    }
+
+    const textOutput = candidate?.content?.parts?.[0]?.text;
     if (!textOutput) {
         throw new Error('Received an empty response from the AI preceptor service.');
     }

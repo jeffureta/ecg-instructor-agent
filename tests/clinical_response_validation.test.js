@@ -12,7 +12,9 @@ import {
   validateClinicalResponseSections,
   formatUserClinicalQuery,
   MANDATORY_CLINICAL_SECTIONS,
-  GEMINI_API_ENDPOINT
+  GEMINI_API_ENDPOINT,
+  DEFAULT_MAX_OUTPUT_TOKENS,
+  buildEcgTutoringPayload
 } from '../js/api_service.js';
 
 import { formatMarkdownToHtml } from '../js/ui_controller.js';
@@ -126,6 +128,16 @@ assert(!htmlOutput.includes('\r'), 'CRLF line endings successfully normalized');
 console.log('\n[Suite 5: Model Endpoint & Deprecation Guard]');
 assert(GEMINI_API_ENDPOINT.includes('gemini-3.8-flash'), 'API endpoint uses current baseline model gemini-3.8-flash');
 assert(!GEMINI_API_ENDPOINT.includes('gemini-2.5-flash'), 'API endpoint does NOT use deprecated model gemini-2.5-flash');
+
+// Suite 6: Token Allowance & Truncation Guard
+console.log('\n[Suite 6: Token Allowance & Truncation Guard]');
+assert(DEFAULT_MAX_OUTPUT_TOKENS >= 4096, `Token allowance DEFAULT_MAX_OUTPUT_TOKENS (${DEFAULT_MAX_OUTPUT_TOKENS}) provides >= 4096 tokens`);
+assert(DEFAULT_MAX_OUTPUT_TOKENS === 8192, 'Token allowance DEFAULT_MAX_OUTPUT_TOKENS is configured to standard 8192 token ceiling');
+
+const testPayload = buildEcgTutoringPayload('Clinical scenario test with 80yo patient');
+assert(testPayload.generationConfig.maxOutputTokens === 8192, 'Generated payload has maxOutputTokens set to 8192');
+assert(testPayload.generationConfig.temperature === 0.2, 'Generated payload maintains clinical fidelity temperature of 0.2');
+assert(testPayload.contents[0].parts[0].text.includes('[INSTRUCTION FOR CLINICAL PRECEPTOR]:'), 'Generated payload automatically enriches user query with 5 sections');
 
 console.log(`\n======================================================`);
 console.log(`CLINICAL VALIDATION SUMMARY: ${passed} Passed, ${failed} Failed`);
