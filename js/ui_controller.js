@@ -62,6 +62,8 @@ export function renderChatMessage(sender, messageText) {
 
     // Convert markdown to clean HTML
     let formattedHtml = messageText
+        .replace(/### (.*?)\n/g, '<h4 class="chat-section-title">$1</h4>')
+        .replace(/## (.*?)\n/g, '<h3 class="chat-section-title">$1</h3>')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/`([^`]+)`/g, '<code class="chat-code">$1</code>')
@@ -69,7 +71,7 @@ export function renderChatMessage(sender, messageText) {
         .replace(/\n- (.*?)/g, '<li>$1</li>');
 
     if (formattedHtml.includes('<li>')) {
-        formattedHtml = formattedHtml.replace(/<li>(.*?)(?=<li>|$|<p>)/gs, '<ul><li>$1</ul>');
+        formattedHtml = formattedHtml.replace(/(<li>.*?<\/li>)+/gs, '<ul>$&</ul>');
     }
 
     card.innerHTML = formattedHtml;
